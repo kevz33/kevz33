@@ -1,0 +1,9 @@
+img{
+    width: 600px;
+}
+.highlighted {
+    background-color: yellow;
+}
+#first{
+    background-color: blue;
+}
