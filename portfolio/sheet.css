@@ -10,7 +10,7 @@ nav a{
     color: white;
 }
 nav a:hover{
-    border-bottom:2px;
+    border-bottom:2px orange solid;
     font-size:2em;
     transition:.9s;
 }
@@ -47,4 +47,7 @@ h1{
     font-family: 'Pacifico', cursive;
     font-size: 4em;
     margin-bottom: 0px;
+}
+#content{
+    padding-left: 125px;
 }
