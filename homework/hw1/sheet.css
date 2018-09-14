@@ -1,0 +1,66 @@
+body{
+    width:100%;
+    height: auto;
+    overflow: hidden;
+    background-color: black;
+    color: lightgreen;
+    text-decoration: none;
+}
+
+*{
+    padding:0;
+    margin:0;
+}
+.content-wrapper{
+    width:80%;
+    margin: .5% 10% 5% 10%;
+}
+.content-wrapper img{
+    width: 100%;
+    opacity: .35;
+}
+.text-wrapper{
+    width: 100%;
+    position: relative;
+    margin-top: -88%;
+}
+.text-wrapper h1{
+    
+    text-align: center;
+    color: #009933;
+    font-size: 5vw;
+    font-family: 'Roboto Mono', monospace;
+
+    
+}
+nav a{
+    padding:15px;
+    padding-bottom:4px solid green;
+    font-size:1.8em;
+    text-decoration:none;
+    color: #009933 ;
+    font-family: 'Roboto Mono', monospace;
+}
+nav a:hover{
+    border-bottom:2px ;
+    font-size:2em;
+    transition:.9s;
+}
+header, main ,nav, footer{
+    text-align: center;
+}
+#definition{
+    margin-top: 50px;
+    color: white;
+    font-size:1.1em;
+    
+}
+#bh{
+    margin-top: 50px;
+    font-size: 1.2em;
+    color: white;
+}
+footer{
+    margin-top:35%;
+    color: blue;
+}
