@@ -1,11 +1,5 @@
 <?php
-        for($i=1; $i<4;$i++)
-        {
-            ${"randomValue". $i} = rand(0,3);
-            displaySymbol(${"randomValue". $i}, $i);
-        }
-        displayPoints($randomValue1, $randomValue2, $randomValue3);
-        
+       
         function displaySymbol($randomValue, $pos)
         {
         /*if ($randValue == 0)
@@ -43,7 +37,7 @@
             echo "<div id='output'";
             if ($randomValue1 == $randomValue2 && $randomValue2 == $randomValue3)
             {
-                switch ($randomValue)
+                switch ($randomValue1)
                 {
                     case 0: $totalPoints = 1000;
                     echo "<h1>Jackpot!</h1>";
