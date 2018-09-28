@@ -75,5 +75,5 @@
     </div>
     Images source: https://www.kisspng.com/png-rockpaperscissors-game-money-4410819/
 </body>
-
+/*
 </html>
