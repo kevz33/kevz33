@@ -33,7 +33,7 @@ if (isset($_POST['itemName']))
     if ($found != true)
     {
         $newItem['quantity']=1;
-        array_push($_SESSION['cart']. $newitem);
+        array_push($_SESSION['cart'], $newitem);
     }
 }
 
