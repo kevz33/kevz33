@@ -1,0 +1,16 @@
+h1{
+    text-align: center;
+}
+.rectangle {
+  border-radius: 25px;
+  height: 300px;
+  width: 800px;
+  background-color: pink;
+  
+}
+div{
+    text-align: center;
+    margin-left: 265px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
