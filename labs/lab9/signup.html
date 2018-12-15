@@ -1,0 +1,244 @@
+<html>
+
+<head>
+
+   <title> Ajax Signup </title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script> var usernames   = ["Bob"]</script>
+
+</head>
+
+<body>
+
+    <header>
+
+      <h1>Signup</h1>
+
+    </header>
+
+
+
+      <form method="post" name="myForm" onsubmit= "return submitCheck()">
+
+        Username:   <input type="text" id="username"> <span id="confirmation"></span> <br><br>
+        
+        Password:   <input type="password" id="password">  <span id="passConfirm"></span><br><br>
+        
+        Retype Password:   <input type="password" id="password2"> <br><br>
+
+        Zip Code:     <input type="text" id="zipcode" name="zipcode"><span id="msg"></span> <br><br>
+
+        City: <input type="text" name="city" id="city"> <br><br>
+        
+        Longitude: <input type="text" name="longitude" id="longitude"> <br><br>
+        
+        Latitude: <input type="text" name="latitude" id="latitude"> <br><br>
+        
+        State: <select id = "states">
+          <option value="default"></option>
+          <option value="AL">Alabama</option>
+          <option value="AK">Alaska</option>
+          <option value="AZ">Arizona</option>
+          <option value="AR">Arkansas</option>
+          <option value="CA">California</option>
+          <option value="CO">Colorado</option>
+          <option value="CT">Connecticut</option>
+          <option value="DE">Delaware</option>
+          <option value="DC">District Of Columbia</option>
+          <option value="FL">Florida</option>
+          <option value="GA">Georgia</option>
+          <option value="HI">Hawaii</option>
+          <option value="ID">Idaho</option>
+          <option value="IL">Illinois</option>
+          <option value="IN">Indiana</option>
+          <option value="IA">Iowa</option>
+          <option value="KS">Kansas</option>
+          <option value="KY">Kentucky</option>
+	        <option value="LA">Louisiana</option>
+	        <option value="ME">Maine</option>
+	        <option value="MD">Maryland</option>
+	        <option value="MA">Massachusetts</option>
+	        <option value="MI">Michigan</option>
+	        <option value="MN">Minnesota</option>
+	        <option value="MS">Mississippi</option>
+	        <option value="MO">Missouri</option>
+	        <option value="MT">Montana</option>
+	        <option value="NE">Nebraska</option>
+	        <option value="NV">Nevada</option>
+	        <option value="NH">New Hampshire</option>
+	        <option value="NJ">New Jersey</option>
+	        <option value="NM">New Mexico</option>
+	        <option value="NY">New York</option>
+	        <option value="NC">North Carolina</option>
+	        <option value="ND">North Dakota</option>
+	        <option value="OH">Ohio</option>
+	        <option value="OK">Oklahoma</option>
+	        <option value="OR">Oregon</option>
+	        <option value="PA">Pennsylvania</option>
+	        <option value="RI">Rhode Island</option>
+	        <option value="SC">South Carolina</option>
+	        <option value="SD">South Dakota</option>
+	        <option value="TN">Tennessee</option>
+	        <option value="TX">Texas</option>
+	        <option value="UT">Utah</option>
+	        <option value="VT">Vermont</option>
+	        <option value="VA">Virginia</option>
+	        <option value="WA">Washington</option>
+	        <option value="WV">West Virginia</option>
+	        <option value="WI">Wisconsin</option>
+        	<option value="WY">Wyoming</option>
+            </select>	<br><br>	
+        Counties: <select id="counties">
+          <option value="default"></option>
+          
+        </select>
+        
+        <input type="submit" id="submit" class="submit">
+
+      </form>
+
+     
+
+      <div id="zipcodeResult"></div>
+Results
+
+
+  <script> 
+
+    
+
+    $("#zipcode").change(zipcodeChange);
+    
+    $("#states").change(stateChange);
+    
+    $("#username").change(userNameChange);
+    
+    
+    
+    
+    
+    function stateChange(){
+      $.ajax({
+
+            type: "get",
+
+            url: "https://www.showdeolabs.com/cors?url=http://itcdland.csumb.edu/~milara/ajax/countyList.php?state=" + $("#states").val(),
+
+        dataType: "json",
+        
+        data: {
+
+                   "format":"geojson",
+
+            },
+
+            success: function(data,status) {
+              var realData = JSON.parse(data);
+              var select = document.getElementById("counties");
+              select.options.length = 1;
+  
+                 for (index in realData) {
+                   select.options[select.options.length] = new Option(realData[index]['county'], index);
+                 }
+
+              },
+
+            complete: function(data,status) { //optional, used for debugging purposes
+
+                 //alert(status);
+
+            }
+
+         });
+      
+    }
+
+    
+
+    function zipcodeChange() {      
+
+      $.ajax({
+
+            type: "get",
+
+            url: "https://www.showdeolabs.com/cors?url=http://itcdland.csumb.edu/~milara/ajax/cityInfoByZip.php?zip=" + $("#zipcode").val(),
+
+        dataType: "json",
+        
+        data: {
+
+                   "format":"geojson",
+
+            },
+
+            success: function(data,status) {
+              
+              var realData = JSON.parse(data);
+
+                 for (var i=0; i < (Object.keys(realData).length / 2); i++ ) {
+
+                  $('#zipcodeResult').append(realData[i] + "<br>");
+
+                 }
+                 
+                 if(Object.keys(realData).length == 0){
+                   document.getElementById("msg").innerHTML = " Zipcode not found";
+                 }
+                 else{
+                  document.getElementById("msg").innerHTML = "";
+                  document.myForm.city.value = realData[1];
+                  document.myForm.latitude.value = realData[5];
+                  document.myForm.longitude.value = realData[6];
+                 }
+                 
+                 
+
+              },
+
+            complete: function(data,status) { //optional, used for debugging purposes
+
+                 //alert(status);
+
+            }
+
+         });
+
+    }
+    function userNameChange(){
+      var found = false;
+      for(name in usernames){
+        if($("#username").val() == usernames[name]){
+          found = true;
+        }
+      }
+      if(found != true){
+        document.getElementById("confirmation").innerHTML = "Username Available";
+        document.getElementById("confirmation").className = "confirmed";
+      }else{
+        document.getElementById("confirmation").innerHTML = "Username Taken";
+        document.getElementById("confirmation").className = "error";
+      }
+    }
+    function submitCheck(){
+      //var match = false;
+      if($("#password").val()==$("#password2").val()){
+        //match = true;
+        document.getElementById("passConfirm").innerHTML = "Passwords Match";
+        document.getElementById("passConfirm").className = "confirmed";
+        return true;
+      }else{
+        document.getElementById("passConfirm").innerHTML = "Passwords Do Not Match!";
+        document.getElementById("passConfirm").className = "error";
+        return false;
+        //match = false;
+      }
+    }
+
+
+  </script>
+
+  </body>
+
+  </html>

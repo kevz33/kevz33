@@ -1,0 +1,19 @@
+.confirmed{
+    color: green;
+     
+}
+.error{
+    color: red;
+     
+}
+body{
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    color : black;
+    background-color: grey;
+    
+}
+h1{
+    font-family: sans;
+    color: white;
+}
